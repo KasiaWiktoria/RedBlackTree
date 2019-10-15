@@ -1,4 +1,4 @@
-public class RedBlackTree<K extends Comparable<K>,V> {
+public class RedBlackTree implements MapInterface {
 
     public Node root;
 
@@ -7,20 +7,24 @@ public class RedBlackTree<K extends Comparable<K>,V> {
     }
 
     public static void checkRight(Node tmp, Node n){
-        while(tmp.getRight().compareTo(n) < 0) {
-            if (tmp.hasRight())
-                tmp = tmp.getRight();
-            else
-                tmp.setRight(n);
+        if(tmp.hasRight()) {
+            while (tmp.getRight().getKey().compareTo(n) < 0) {
+                if (tmp.hasRight())
+                    tmp = tmp.getRight();
+                else
+                    tmp.setRight(n);
+            }
         }
     }
 
     public static void checkLeft(Node tmp, Node n){
-        while (tmp.getLeft().compareTo(n) > 0) {
-            if (tmp.hasLeft())
-                tmp = tmp.getLeft();
-            else
-                tmp.setLeft(n);
+        if(tmp.hasLeft()) {
+            while (tmp.getLeft().getKey().compareTo(n) > 0) {
+                if (tmp.hasLeft())
+                    tmp = tmp.getLeft();
+                else
+                    tmp.setLeft(n);
+            }
         }
     }
 
@@ -30,7 +34,7 @@ public class RedBlackTree<K extends Comparable<K>,V> {
 
         while(tmp.hasRight()) {
             checkRight(tmp, n);
-            if (tmp.compareTo(n) == 0)
+            if (tmp.getKey().compareTo(n) == 0)
                 tmp.setValue(n.getValue());
             checkLeft(tmp, n);
         }
@@ -44,5 +48,14 @@ public class RedBlackTree<K extends Comparable<K>,V> {
 
     }
 
-    
+
+    @Override
+    public void setValue(Comparable key, Object value) {
+
+    }
+
+    @Override
+    public Object getValue(Comparable key) {
+        return null;
+    }
 }

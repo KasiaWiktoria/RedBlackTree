@@ -8,20 +8,20 @@
  *
  * @author stankiek
  */
-public class Node implements Comparable<Node>{
+public class Node<K extends  Comparable<K>,V> {
     
-    private int key;
-    private char value;
+    private K key;
+    private V value;
     private Node left;
 	private Node right;
 	private Node up;
 	private char color;
 
-    public Node(int key, char value){
+    public Node(K key, V value){
 
     	this.key = key;
     	this.value = value;
-		this.color = 'b';
+		this.color = 'r';
 	}
 
 	public boolean isRoot(){
@@ -30,19 +30,19 @@ public class Node implements Comparable<Node>{
     	else
     		return false;
 	}
-	
+
 	public boolean hasLeft(){
     	if(left == null)
-    		return true;
-    	else
     		return false;
+    	else
+    		return true;
 	}
 
 	public boolean hasRight(){
 		if(right == null)
-			return true;
-		else
 			return false;
+		else
+			return true;
 	}
 
 	public void red(){
@@ -50,24 +50,19 @@ public class Node implements Comparable<Node>{
     		setColor('r');
 	}
 
-	@Override
-	public int compareTo(Node o){
-		return key - o.key;
-	}
-
-	public int getKey(){
+	public K getKey(){
     	return key;
     }
 
-	public void setKey(int k){
+	public void setKey(K k){
     	this.key = k;
     }
 
-	public char getValue() {
+	public V getValue() {
 		return value;
 	}
 
-	public void setValue(char value) {
+	public void setValue(V value) {
 		this.value = value;
 	}
 
