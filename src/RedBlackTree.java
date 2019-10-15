@@ -6,26 +6,33 @@ public class RedBlackTree<K extends Comparable<K>,V> {
         this.root = root;
     }
 
+    public static void checkRight(Node tmp, Node n){
+        while(tmp.getRight().compareTo(n) < 0) {
+            if (tmp.hasRight())
+                tmp = tmp.getRight();
+            else
+                tmp.setRight(n);
+        }
+    }
+
+    public static void checkLeft(Node tmp, Node n){
+        while (tmp.getLeft().compareTo(n) > 0) {
+            if (tmp.hasLeft())
+                tmp = tmp.getLeft();
+            else
+                tmp.setLeft(n);
+        }
+    }
+
     public void add(Node n){
 
         Node tmp = root;
 
         while(tmp.hasRight()) {
-            while(tmp.getRight().compareTo(n) < 0) {
-                if (tmp.hasRight())
-                    tmp = tmp.getRight();
-                else
-                    tmp.setRight(n);
-            }
+            checkRight(tmp, n);
             if (tmp.compareTo(n) == 0)
                 tmp.setValue(n.getValue());
-
-            while (tmp.getLeft().compareTo(n) > 0) {
-                if (tmp.hasLeft())
-                    tmp = tmp.getLeft();
-                else
-                    tmp.setLeft(n);
-            }
+            checkLeft(tmp, n);
         }
     }
 

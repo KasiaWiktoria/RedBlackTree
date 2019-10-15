@@ -30,6 +30,7 @@ public class Node implements Comparable<Node>{
     	else
     		return false;
 	}
+	
 	public boolean hasLeft(){
     	if(left == null)
     		return true;
@@ -42,6 +43,11 @@ public class Node implements Comparable<Node>{
 			return true;
 		else
 			return false;
+	}
+
+	public void red(){
+    	if(!this.isRoot() && this.up.getColor() != 'r' && (this.hasLeft() || this.hasRight()))
+    		setColor('r');
 	}
 
 	@Override
