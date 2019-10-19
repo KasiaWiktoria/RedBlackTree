@@ -15,39 +15,14 @@ public class Node<K extends  Comparable<K>,V> {
     private Node left;
 	private Node right;
 	private Node up;
-	private char color;
+	private boolean isRed;
+
 
     public Node(K key, V value){
 
     	this.key = key;
     	this.value = value;
-		this.color = 'r';
-	}
-
-	public boolean isRoot(){
-    	if(up == null)
-    		return true;
-    	else
-    		return false;
-	}
-
-	public boolean hasLeft(){
-    	if(left == null)
-    		return false;
-    	else
-    		return true;
-	}
-
-	public boolean hasRight(){
-		if(right == null)
-			return false;
-		else
-			return true;
-	}
-
-	public void red(){
-    	if(!this.isRoot() && this.up.getColor() != 'r' && (this.hasLeft() || this.hasRight()))
-    		setColor('r');
+		this.isRed = true;
 	}
 
 	public K getKey(){
@@ -90,11 +65,11 @@ public class Node<K extends  Comparable<K>,V> {
 		this.up = up;
 	}
 
-	public char getColor() {
-		return color;
+	public boolean isRed() {
+		return isRed;
 	}
 
-	public void setColor(char color) {
-		this.color = color;
+	public void setIsRed(boolean isRed) {
+		this.isRed = isRed;
 	}
 }

@@ -22,20 +22,9 @@ public class Main {
         tree.add(n4);
         tree.add(n5);
 
-
-        System.out.print("             " + n1 + "\n");
-        Node head = tree.root;
-        while(head.hasLeft() || head.hasRight()) {
-            if(head.hasLeft()) {
-                System.out.print("      " + head.getLeft());
-            }
-            if(head.hasRight()) {
-                System.out.print("   " + head.getRight() + "\n");
-                head = head.getRight();
-            }else if(head.hasLeft())
-                head = head.getLeft();
-
-        }
+        System.out.print(tree.treeHeight());
+        tree.printTree();
+        //tree.print();
 
     }
 }
