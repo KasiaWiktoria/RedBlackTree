@@ -7,6 +7,13 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface{
         nil = new Node();
     }
 
+    public Node getRoot() {
+        return root;
+    }
+
+    public void setRoot(Node root) {
+        this.root = root;
+    }
     @Override
     public void setValue(Comparable key, Object value) {
         if(root == null) {
@@ -110,6 +117,37 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface{
                 n.getUp().changeColor();
                 n.getUp().getLeft().changeColor();
             }
+        }
+    }
+
+    public void wypiszDzieci(Node x, int level) {
+        for (int i = 0; i < level; i++) {
+            System.out.print("    ");
+        }
+        System.out.println("Dla węzła " + x.getKey() + " dzieci to:");
+        if (x.getLeft() != nil) {
+            for (int i = 0; i < level; i++) {
+                System.out.print("    ");
+            }
+            System.out.println("L: " + x.getLeft().getKey() + " " + x.getLeft().isRed());
+            wypiszDzieci(x.getLeft(), level + 1);
+        } else {
+            for (int i = 0; i < level; i++) {
+                System.out.print("    ");
+            }
+            System.out.println("L - nill");
+        }
+        if (x.getRight() != nil) {
+            for (int i = 0; i < level; i++) {
+                System.out.print("    ");
+            }
+            System.out.println("R: " + x.getRight().getKey() + " " + x.getRight().isRed());
+            wypiszDzieci(x.getRight(), level + 1);
+        } else {
+            for (int i = 0; i < level; i++) {
+                System.out.print("    ");
+            }
+            System.out.println("R - nill");
         }
     }
 }
