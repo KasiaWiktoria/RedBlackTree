@@ -1,8 +1,12 @@
-public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface{
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
+public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
     private Node root;
     private Node nil;
 
-    public RedBlackTree(){
+    public RedBlackTree() {
         root = null;
         nil = new Node();
     }
@@ -14,18 +18,26 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface{
     public void setRoot(Node root) {
         this.root = root;
     }
+
+    public Node getNil() {
+        return nil;
+    }
+
+    public void setNil(Node nil) {
+        this.nil = nil;
+    }
+
     @Override
     public void setValue(Comparable key, Object value) {
-        if(root == null) {
+        if (root == null) {
             root = new Node(key, value);
             root.setRight(nil);
             root.setLeft(nil);
             root.setUp(nil);
             root.setRed(false);
-        }
-        else {
+        } else {
             Node tmp = root;
-            Node n = new Node(key,value);
+            Node n = new Node(key, value);
             while (n.getUp() == null) {
                 while (key.compareTo(tmp.getKey()) > 0) {
                     if (tmp.getRight() != nil) {
@@ -36,7 +48,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface{
                         n.setRight(nil);
                         n.setRed(true);
                         tmp.setRight(n);
-                        if(tmp.isRed())
+                        if (tmp.isRed())
                             fixRBT(n);
                     }
                 }
@@ -52,102 +64,133 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface{
                         n.setRight(nil);
                         n.setRed(true);
                         tmp.setLeft(n);
-                        if(tmp.isRed())
+                        if (tmp.isRed())
                             fixRBT(n);
                     }
                 }
             }
+            if(n.getUp() == nil)
+                root = n;
         }
     }
 
     @Override
     public Object getValue(Comparable key) {
         Node tmp = root;
-        while (key.compareTo(tmp.getKey()) != 0){
-            if(key.compareTo(tmp.getKey()) < 0 && tmp.getLeft() != nil){
+        while (key.compareTo(tmp.getKey()) != 0) {
+            if (key.compareTo(tmp.getKey()) < 0 && tmp.getLeft() != nil) {
                 tmp = tmp.getLeft();
-            }else if(key.compareTo(tmp.getKey()) > 0 && tmp.getRight() != nil){
+            } else if (key.compareTo(tmp.getKey()) > 0 && tmp.getRight() != nil) {
                 tmp = tmp.getRight();
-            }else
+            } else
                 return null;
         }
         return tmp.getValue();
     }
 
-
     public void fixRBT(Node n) {
-        Node upUp = n.getUp().getUp();
 
-        while (n.getUp().isRed()) {
-
-            // case 1
-            if ((n.getUp().getUp().getLeft().getLeft() == n || n.getUp().getUp().getLeft().getRight() == n) && n.getUp().getUp().getRight().isRed()) {
-                n.getUp().setRed(false);
-                n.getUp().getUp().getRight().setRed(false);
-                if (n.getUp().getUp().getUp() != nil) {
-                    n.getUp().getUp().setRed(true);
-                    n = n.getUp().getUp();
+        if (n.getUp().getUp() != nil) {
+            //father as left son
+            if (n.getUp().getUp().getLeft() == n.getUp()) {
+                //case 1
+                if (n.getUp().getUp().getRight().isRed()) {
+                    n.getUp().setRed(false);
+                    n.getUp().getUp().getRight().setRed(false);
+                    if (n.getUp().getUp().getUp() != nil) {
+                        n.getUp().getUp().setRed(true);
+                        n = n.getUp().getUp();
+                        fixRBT(n);
+                    }
+                }//case2
+                else if (n.getUp().getRight() == n) {
+                    n = n.getUp().leftRotation().getLeft();
+                    fixRBT(n);
+                }//case 3
+                else if (n.getUp().getLeft() == n) {
+                    n.setUp(n.getUp().getUp().rightRotation());
+                    n.getUp().changeColor();
+                    n.getUp().getRight().changeColor();
                 }
-            }
-
-            // case 2
-            if (n.getUp().getUp().getLeft().getRight() == n && !n.getUp().getUp().getRight().isRed()) {
-                n = n.leftRotation();
-//                Node tmp = n.getUp();
-//                n.setLeft(n.getUp());
-//                n.getUp().setUp(n);
-//                n.setUp(tmp.getUp());
-//                n = n.getLeft();
-            }else if (n.getUp().getUp().getRight().getLeft() == n && !n.getUp().getUp().getLeft().isRed()) {
-                n = n.rightRotation();
-//                Node tmp = n.getUp();
-//                n.setRight(n.getUp());
-//                n.getUp().setUp(n);
-//                n.setUp(tmp.getUp());
-//                n = n.getRight();
-            }
-
-            // case 3
-            if (n.getUp().getUp().getLeft().getLeft() == n && !n.getUp().getUp().getRight().isRed()) {
-                n.setUp(n.getUp().getUp().rightRotation());
-                n.getUp().changeColor();
-                n.getUp().getRight().changeColor();
-            }else if (n.getUp().getUp().getRight().getRight() == n && !n.getUp().getUp().getLeft().isRed()){
-                n.setUp(n.getUp().getUp().leftRotation());
-                n.getUp().changeColor();
-                n.getUp().getLeft().changeColor();
+            }//father as right son
+            else if (n.getUp().getUp().getRight() == n.getUp()) {
+                // case 1
+                if (n.getUp().getUp().getLeft().isRed()) {
+                    n.getUp().setRed(false);
+                    n.getUp().getUp().getLeft().setRed(false);
+                    if (n.getUp().getUp().getUp() != nil) {
+                        n.getUp().getUp().setRed(true);
+                        n = n.getUp().getUp();
+                        fixRBT(n);
+                    }
+                    // case 2
+                } else if (n.getUp().getLeft() == n) {
+                    n = n.getUp().rightRotation().getRight();
+                    fixRBT(n);
+                    // case 3
+                } else if (n.getUp().getRight() == n) {
+                    n.setUp(n.getUp().getUp().leftRotation());
+                    n.getUp().changeColor();
+                    n.getUp().getLeft().changeColor();
+                }
             }
         }
     }
 
-    public void wypiszDzieci(Node x, int level) {
-        for (int i = 0; i < level; i++) {
-            System.out.print("    ");
+    public int treeHeight() {
+        int hr = 1, hl = 1;
+        Node r = root;
+        Node l = root;
+        while (r.getRight() != nil || l.getLeft() != nil ) {
+            if (r.getRight() != nil) {
+                r = r.getRight();
+                hr++;
+            }
+            if (l.getLeft() != nil ) {
+                l = l.getLeft();
+                hl++;
+            }
         }
-        System.out.println("Dla węzła " + x.getKey() + " dzieci to:");
-        if (x.getLeft() != nil) {
-            for (int i = 0; i < level; i++) {
-                System.out.print("    ");
+        if (hr > hl)
+            return hr;
+        else
+            return hl;
+    }
+
+    public void print(Node head){
+
+        HashSet<Node> previous = new HashSet<>();
+        printP(head,previous);
+    }
+
+    public void printP(Node head, HashSet<Node> previous){
+
+        previous.add(head);
+
+        if(head.getUp() == nil)
+            System.out.println("KORZEŃ");
+        System.out.print("Klucz: " + head.getKey() + "  ");
+        System.out.print("Wartość: " + head.getValue() + "  ");
+        System.out.println("czy czerwony: " + head.isRed());
+        System.out.print("Prawy: " +  head.getRight().getKey() + "   ");
+        System.out.println("Lewy: " + head.getLeft().getKey() + "   ");
+        System.out.println("\n");
+
+        if(head.getLeft() != nil && !previous.contains(head.getLeft())){
+            printP(head.getLeft(),previous);
+        }else if (head.getRight() != nil && !previous.contains(head.getRight())){
+            printP(head.getRight(),previous);
+        }else if ((head.getLeft() == nil && head.getRight() == nil) || (previous.contains(head.getLeft())) && previous.contains(head.getRight())){
+            while((head.getLeft() == nil || previous.contains(head.getLeft())) && ((head.getRight() == nil) || previous.contains(head.getRight()))){
+                head = head.getUp();
             }
-            System.out.println("L: " + x.getLeft().getKey() + " " + x.getLeft().isRed());
-            wypiszDzieci(x.getLeft(), level + 1);
-        } else {
-            for (int i = 0; i < level; i++) {
-                System.out.print("    ");
+            if(head.getRight() != nil && !previous.contains(head.getRight())){
+                head =head.getRight();
+            }else if (head.getLeft() != nil && !previous.contains(head.getLeft())){
+                head = head.getLeft();
             }
-            System.out.println("L - nill");
-        }
-        if (x.getRight() != nil) {
-            for (int i = 0; i < level; i++) {
-                System.out.print("    ");
-            }
-            System.out.println("R: " + x.getRight().getKey() + " " + x.getRight().isRed());
-            wypiszDzieci(x.getRight(), level + 1);
-        } else {
-            for (int i = 0; i < level; i++) {
-                System.out.print("    ");
-            }
-            System.out.println("R - nill");
+            if(head != null)
+                printP(head,previous);
         }
     }
 }
