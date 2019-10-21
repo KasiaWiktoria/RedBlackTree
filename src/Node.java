@@ -22,29 +22,6 @@ public class Node <K extends Comparable<K>,V>{
             this.setRed(true);
     }
 
-    public Node leftRotation() {
-        Node aUp = this.up;
-        Node b = this.right;
-        Node bLeft = this.right.left;
-
-        this.setUp(b);
-        this.setRight(bLeft);
-        b.setUp(aUp);
-        b.setLeft(this);
-        return b;
-    }
-
-    public Node rightRotation() {
-        Node aUp = this.up;
-        Node b = this.left;
-        Node bRight = this.left.right;
-
-        this.setUp(b);
-        this.setLeft(bRight);
-        b.setUp(aUp);
-        b.setRight(this);
-        return b;
-    }
 
     public K getKey() {
         return key;

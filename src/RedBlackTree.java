@@ -88,27 +88,79 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
         return tmp.getValue();
     }
 
-    public void fixRBT(Node n) {
+    public Node leftRotation(Node n) {
+        Node b = n.getRight();
+        Node bLeft = n.getRight().getLeft();
 
-        if (n.getUp().getUp() != nil) {
+        if(n.getUp().getLeft() == n){
+            b.setUp(n.getUp());
+            n.getUp().setLeft(b);
+            b.setLeft(n);
+            n.setUp(b);
+            n.setRight(bLeft);
+            bLeft.setUp(n);
+        }else {
+            b.setUp((n.getUp()));
+            n.getUp().setRight(b);
+            b.setLeft(n);
+            n.setUp(b);
+            n.setRight(bLeft);
+            bLeft.setUp(n);
+        }
+        if(n == root){
+            root = n.getUp();
+        }
+        return b;
+    }
+
+    public Node rightRotation(Node n) {
+        Node b = n.getLeft();
+        Node bRight = n.getLeft().getRight();
+
+        if(n.getUp().getRight() == n){
+            b.setUp(n.getUp());
+            n.getUp().setRight(b);
+            b.setRight(n);
+            n.setUp(b);
+            n.setLeft(bRight);
+            bRight.setUp(n);
+        }else if(n.getUp().getLeft() == n){
+            b.setUp((n.getUp()));
+            n.getUp().setLeft(b);
+            b.setRight(n);
+            n.setUp(b);
+            n.setLeft(bRight);
+            bRight.setUp(n);
+        }
+        if(n == root){
+            root = n.getUp();
+        }
+        return b;
+    }
+
+    public void fixRBT(Node n) {
+        System.out.println("fix");
+        if (n != nil && n.getUp().getUp() != nil && n.getUp().isRed()) {
             //father as left son
             if (n.getUp().getUp().getLeft() == n.getUp()) {
                 //case 1
                 if (n.getUp().getUp().getRight().isRed()) {
+                    System.out.println("lewy syn, 1");
                     n.getUp().setRed(false);
                     n.getUp().getUp().getRight().setRed(false);
                     if (n.getUp().getUp().getUp() != nil) {
                         n.getUp().getUp().setRed(true);
-                        n = n.getUp().getUp();
-                        fixRBT(n);
+                        fixRBT(n.getUp().getUp());
                     }
                 }//case2
                 else if (n.getUp().getRight() == n) {
-                    n = n.getUp().leftRotation().getLeft();
+                    System.out.println("lewy syn, 2");
+                    n = leftRotation(n.getUp()).getLeft();
                     fixRBT(n);
                 }//case 3
                 else if (n.getUp().getLeft() == n) {
-                    n.setUp(n.getUp().getUp().rightRotation());
+                    System.out.println("lewy syn, 3");
+                    n.setUp(rightRotation(n.getUp().getUp()));
                     n.getUp().changeColor();
                     n.getUp().getRight().changeColor();
                 }
@@ -116,6 +168,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
             else if (n.getUp().getUp().getRight() == n.getUp()) {
                 // case 1
                 if (n.getUp().getUp().getLeft().isRed()) {
+                    System.out.println("prawy syn, 1");
                     n.getUp().setRed(false);
                     n.getUp().getUp().getLeft().setRed(false);
                     if (n.getUp().getUp().getUp() != nil) {
@@ -125,16 +178,19 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
                     }
                     // case 2
                 } else if (n.getUp().getLeft() == n) {
-                    n = n.getUp().rightRotation().getRight();
+                    System.out.println("prawy syn, 2");
+                    n = rightRotation(n.getUp()).getRight();
                     fixRBT(n);
                     // case 3
                 } else if (n.getUp().getRight() == n) {
-                    n.setUp(n.getUp().getUp().leftRotation());
+                    System.out.println("prawy syn, 3");
+                    n.setUp(leftRotation(n.getUp().getUp()));
                     n.getUp().changeColor();
                     n.getUp().getLeft().changeColor();
                 }
             }
         }
+        System.out.println("\n");
     }
 
     public int treeHeight() {
@@ -167,13 +223,17 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
 
         previous.add(head);
 
+        if(root == null)
+            return;
+
         if(head.getUp() == nil)
             System.out.println("KORZEŃ");
         System.out.print("Klucz: " + head.getKey() + "  ");
         System.out.print("Wartość: " + head.getValue() + "  ");
         System.out.println("czy czerwony: " + head.isRed());
-        System.out.print("Prawy: " +  head.getRight().getKey() + "   ");
-        System.out.println("Lewy: " + head.getLeft().getKey() + "   ");
+        System.out.println("Ojciec: " + head.getUp().getKey());
+        System.out.print("Lewy: " + head.getLeft().getKey() + "   ");
+        System.out.println("Prawy: " +  head.getRight().getKey() + "   ");
         System.out.println("\n");
 
         if(head.getLeft() != nil && !previous.contains(head.getLeft())){

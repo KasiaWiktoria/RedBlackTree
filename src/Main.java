@@ -2,18 +2,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        RedBlackTree<Integer, Double> tree = new RedBlackTree<>();
+        RedBlackTree<Integer, Double> treeID = new RedBlackTree<>();
 
-        tree.setValue(7, 7.2);
-        tree.print(tree.getRoot());
-        tree.setValue(4, 4.1);
-        tree.print(tree.getRoot());
-        tree.setValue(8, 8.7);
-        tree.print(tree.getRoot());
-        tree.setValue(2, 2.4);
-        tree.print(tree.getRoot());
-        tree.setValue(5, 5.9);
+        treeID.setValue(23, 2.3);
+        treeID.setValue(41, 4.1);
+        treeID.setValue(58, 8.7);
+        treeID.setValue(12, 2.4);
+        treeID.setValue(25, 5.9);
+        treeID.setValue(16, 1.6);
+        System.out.println("Drzewo czerwono-czarne o kluczach Integer, zawierające wartości Double");
+        System.out.println("_______________________________________________________________________");
+        treeID.print(treeID.getRoot());
 
-        tree.print(tree.getRoot());
+        RedBlackTree<Double, String> treeDS = new RedBlackTree<>();
+
+        treeDS.print(treeDS.getRoot());
     }
 }
