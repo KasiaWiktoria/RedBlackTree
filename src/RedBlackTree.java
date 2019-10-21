@@ -39,7 +39,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
             Node tmp = root;
             Node n = new Node(key, value);
             while (n.getUp() == null) {
-                while (key.compareTo(tmp.getKey()) > 0) {
+                if (key.compareTo(tmp.getKey()) > 0) {
                     if (tmp.getRight() != nil) {
                         tmp = tmp.getRight();
                     } else {
@@ -52,10 +52,10 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
                             fixRBT(n);
                     }
                 }
-                if (key.compareTo(tmp.getKey()) == 0) {
+                else if (key.compareTo(tmp.getKey()) == 0) {
                     tmp.setValue(value);
                 }
-                while (key.compareTo(tmp.getKey()) < 0) {
+                else if (key.compareTo(tmp.getKey()) < 0) {
                     if (tmp.getLeft() != nil) {
                         tmp = tmp.getLeft();
                     } else {
@@ -69,8 +69,6 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
                     }
                 }
             }
-            if(n.getUp() == nil)
-                root = n;
         }
     }
 
@@ -95,20 +93,21 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
         if(n.getUp().getLeft() == n){
             b.setUp(n.getUp());
             n.getUp().setLeft(b);
+            n.getRight().getLeft().setUp(n);
             b.setLeft(n);
             n.setUp(b);
             n.setRight(bLeft);
-            bLeft.setUp(n);
+
         }else {
             b.setUp((n.getUp()));
             n.getUp().setRight(b);
+            n.getRight().getLeft().setUp(n);
             b.setLeft(n);
             n.setUp(b);
             n.setRight(bLeft);
-            bLeft.setUp(n);
         }
         if(n == root){
-            root = n.getUp();
+            root = b;
         }
         return b;
     }
@@ -120,26 +119,25 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
         if(n.getUp().getRight() == n){
             b.setUp(n.getUp());
             n.getUp().setRight(b);
+            n.getLeft().getRight().setUp(n);
             b.setRight(n);
             n.setUp(b);
             n.setLeft(bRight);
-            bRight.setUp(n);
         }else if(n.getUp().getLeft() == n){
             b.setUp((n.getUp()));
             n.getUp().setLeft(b);
+            n.getLeft().getRight().setUp(n);
             b.setRight(n);
             n.setUp(b);
             n.setLeft(bRight);
-            bRight.setUp(n);
         }
         if(n == root){
-            root = n.getUp();
+            root = b;
         }
         return b;
     }
 
     public void fixRBT(Node n) {
-        System.out.println("fix");
         if (n != nil && n.getUp().getUp() != nil && n.getUp().isRed()) {
             //father as left son
             if (n.getUp().getUp().getLeft() == n.getUp()) {
@@ -190,7 +188,6 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
                 }
             }
         }
-        System.out.println("\n");
     }
 
     public int treeHeight() {
@@ -213,8 +210,9 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
             return hl;
     }
 
-    public void print(Node head){
+    public void print(){
 
+        Node head = root;
         HashSet<Node> previous = new HashSet<>();
         printP(head,previous);
     }
@@ -231,7 +229,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
         System.out.print("Klucz: " + head.getKey() + "  ");
         System.out.print("Wartość: " + head.getValue() + "  ");
         System.out.println("czy czerwony: " + head.isRed());
-        System.out.println("Ojciec: " + head.getUp().getKey());
+        System.out.print("Ojciec: " + head.getUp().getKey() + "     ");
         System.out.print("Lewy: " + head.getLeft().getKey() + "   ");
         System.out.println("Prawy: " +  head.getRight().getKey() + "   ");
         System.out.println("\n");
@@ -240,7 +238,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
             printP(head.getLeft(),previous);
         }else if (head.getRight() != nil && !previous.contains(head.getRight())){
             printP(head.getRight(),previous);
-        }else if ((head.getLeft() == nil && head.getRight() == nil) || (previous.contains(head.getLeft())) && previous.contains(head.getRight())){
+        }else {
             while((head.getLeft() == nil || previous.contains(head.getLeft())) && ((head.getRight() == nil) || previous.contains(head.getRight()))){
                 head = head.getUp();
             }
