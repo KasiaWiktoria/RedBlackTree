@@ -4,7 +4,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         RedBlackTree<Integer, Double> treeID = new RedBlackTree<>();
         RedBlackTree<Double, Double> treeDD = new RedBlackTree<>();
         RedBlackTree<Integer,Integer> treeII = new RedBlackTree<>();
@@ -13,7 +12,10 @@ public class Main {
         addRandomValuesDD(treeDD,2000,4500,350);
         addRandomValuesID(treeID,1500,4000,50);
 
+        System.out.println("Test wstawiania wartości do drzewa: ");
         setTest(treeII);
+        System.out.println("Test wyszukiwania wartości w drzewie: ");
+        getTest(treeII);
     }
 
     private static void setVWithTime(RedBlackTree<Integer, Integer> tree, int n) {
@@ -32,11 +34,18 @@ public class Main {
     }
 
     private static void setTest(RedBlackTree<Integer, Integer> tree) {
-
         Random generator = new Random();
 
         for (int i = 0; i < 1000; i++) {
             setVWithTime(tree, generator.nextInt(1000));
+        }
+    }
+
+    private static void getTest(RedBlackTree<Integer, Integer> tree) {
+        Random generator = new Random();
+
+        for (int i = 0; i < 1000; i++) {
+            getVWithTime(tree, generator.nextInt(1000));
         }
     }
 
