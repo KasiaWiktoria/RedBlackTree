@@ -4,7 +4,14 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Random generator = new Random();
+
+
         RedBlackTree<Integer, Double> treeID = new RedBlackTree<>();
+
+//        for (int i = 0; i < 50; i++) {
+//            treeID.setValue(generator.nextInt(500), generator.nextDouble()%100);
+//        }
 
         treeID.setValue(64, 7.1);
         treeID.setValue(864, 2.3);
@@ -50,10 +57,11 @@ public class Main {
 
         System.out.println("Drzewo czerwono-czarne o kluczach Double, zawierające wartości Double");
         System.out.println("_______________________________________________________________________");
-
         treeDD.print();
 
         RedBlackTree<Integer,Integer> treeII = new RedBlackTree<>();
+
+        //setTest(treeII);
 
         treeII.setValue(17, 14);
         treeII.setValue(84, 23);
@@ -77,12 +85,16 @@ public class Main {
         System.out.println("_______________________________________________________________________");
 
         treeII.print();
+
+
+
     }
 
     private static void setVWithTime(RedBlackTree<Integer, Integer> tree, int n) {
         long start = System.nanoTime();
         tree.setValue(n, n);
         long nanoTime = System.nanoTime() - start;
+                System.out.println(nanoTime);
     }
 
     private static void getVWithTime(RedBlackTree<Integer, Integer> tree, int n) {
@@ -91,6 +103,27 @@ public class Main {
         tree.getValue(n);
         long nanoTime = System.nanoTime() - start;
         System.out.println(nanoTime);
+    }
+
+    private static void setTest(RedBlackTree<Integer, Integer> tree) {
+
+        setVWithTime(tree, 17);
+        setVWithTime(tree, 84);
+        setVWithTime(tree, 609);
+        setVWithTime(tree, 123);
+        setVWithTime(tree, 91);
+        setVWithTime(tree, 58);
+        setVWithTime(tree, 32);
+        setVWithTime(tree, 614);
+        setVWithTime(tree, 99);
+        setVWithTime(tree, 215);
+        setVWithTime(tree, 74);
+        setVWithTime(tree, 36);
+        setVWithTime(tree, 111);
+        setVWithTime(tree, 18);
+        setVWithTime(tree, 112);
+        setVWithTime(tree, 1);
+        setVWithTime(tree, 3);
     }
 
 
