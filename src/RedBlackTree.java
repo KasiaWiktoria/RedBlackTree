@@ -54,6 +54,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
                 }
                 else if (key.compareTo(tmp.getKey()) == 0) {
                     tmp.setValue(value);
+                    n = tmp;
                 }
                 else if (key.compareTo(tmp.getKey()) < 0) {
                     if (tmp.getLeft() != nil) {
@@ -143,7 +144,6 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
             if (n.getUp().getUp().getLeft() == n.getUp()) {
                 //case 1
                 if (n.getUp().getUp().getRight().isRed()) {
-                    System.out.println("lewy syn, 1");
                     n.getUp().setRed(false);
                     n.getUp().getUp().getRight().setRed(false);
                     if (n.getUp().getUp().getUp() != nil) {
@@ -152,12 +152,10 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
                     }
                 }//case2
                 else if (n.getUp().getRight() == n) {
-                    System.out.println("lewy syn, 2");
                     n = leftRotation(n.getUp()).getLeft();
                     fixRBT(n);
                 }//case 3
                 else if (n.getUp().getLeft() == n) {
-                    System.out.println("lewy syn, 3");
                     n.setUp(rightRotation(n.getUp().getUp()));
                     n.getUp().changeColor();
                     n.getUp().getRight().changeColor();
@@ -166,7 +164,6 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
             else if (n.getUp().getUp().getRight() == n.getUp()) {
                 // case 1
                 if (n.getUp().getUp().getLeft().isRed()) {
-                    System.out.println("prawy syn, 1");
                     n.getUp().setRed(false);
                     n.getUp().getUp().getLeft().setRed(false);
                     if (n.getUp().getUp().getUp() != nil) {
@@ -176,12 +173,10 @@ public class RedBlackTree<K extends Comparable<K>, V> implements MapInterface {
                     }
                     // case 2
                 } else if (n.getUp().getLeft() == n) {
-                    System.out.println("prawy syn, 2");
                     n = rightRotation(n.getUp()).getRight();
                     fixRBT(n);
                     // case 3
                 } else if (n.getUp().getRight() == n) {
-                    System.out.println("prawy syn, 3");
                     n.setUp(leftRotation(n.getUp().getUp()));
                     n.getUp().changeColor();
                     n.getUp().getLeft().changeColor();

@@ -6,85 +6,79 @@ public class Main {
 
         Random generator = new Random();
 
-
         RedBlackTree<Integer, Double> treeID = new RedBlackTree<>();
 
-//        for (int i = 0; i < 50; i++) {
-//            treeID.setValue(generator.nextInt(500), generator.nextDouble()%100);
-//        }
+        for (int i = 0; i < 50; i++) {
+            treeID.setValue(generator.nextInt(500), generator.nextDouble()%100);
+        }
 
-        treeID.setValue(64, 7.1);
-        treeID.setValue(864, 2.3);
-        treeID.setValue(109, 2.3);
-        treeID.setValue(23, 2.3);
-        treeID.setValue(41, 4.1);
-        treeID.setValue(58, 8.7);
-        treeID.setValue(132, 2.4);
-        treeID.setValue(614, 7.1);
-        treeID.setValue(489, 6.9);
-        treeID.setValue(25, 5.9);
-        treeID.setValue(16, 1.6);
-        treeID.setValue(236, 2.3);
-        treeID.setValue(141, 4.1);
-        treeID.setValue(158, 8.7);
-        treeID.setValue(112, 2.4);
-        treeID.setValue(1, 7.1);
-        treeID.setValue(3, 89.1);
-
-        System.out.println("Drzewo czerwono-czarne o kluczach Integer, zawierające wartości Double");
-        System.out.println("_______________________________________________________________________");
-        treeID.print();
+//        treeID.setValue(64, 7.1);
+//        treeID.setValue(864, 2.3);
+//        treeID.setValue(109, 2.3);
+//        treeID.setValue(23, 2.3);
+//        treeID.setValue(41, 4.1);
+//        treeID.setValue(58, 8.7);
+//        treeID.setValue(132, 2.4);
+//        treeID.setValue(614, 7.1);
+//        treeID.setValue(489, 6.9);
+//        treeID.setValue(25, 5.9);
+//        treeID.setValue(16, 1.6);
+//        treeID.setValue(236, 2.3);
+//        treeID.setValue(141, 4.1);
+//        treeID.setValue(158, 8.7);
+//        treeID.setValue(112, 2.4);
+//        treeID.setValue(1, 7.1);
+//        treeID.setValue(3, 89.1);
 
         RedBlackTree<Double, Double> treeDD = new RedBlackTree<>();
 
-        treeDD.setValue(2.5, 5.9);
-        treeDD.setValue(0.16, 1.6);
-        treeDD.setValue(23.6, 2.3);
-        treeDD.setValue(0.141, 4.1);
-        treeDD.setValue(1.58, 8.7);
-        treeDD.setValue(112.0, 2.4);
-        treeDD.setValue(1.4, 7.1);
-        treeDD.setValue(8.3, 89.1);
-        treeDD.setValue(6.84, 7.1);
-        treeDD.setValue(86.4, 2.3);
-        treeDD.setValue(10.9, 2.3);
-        treeDD.setValue(0.23, 2.3);
-        treeDD.setValue(41.9, 4.1);
-        treeDD.setValue(5.8, 8.7);
-        treeDD.setValue(13.2, 2.4);
-        treeDD.setValue(6.14, 7.1);
-        treeDD.setValue(4.89, 6.9);
+        for (int i = 0; i < 1000; i++) {
+            treeDD.setValue(generator.nextDouble()%4000, generator.nextDouble()%1000);
+        }
 
-        System.out.println("Drzewo czerwono-czarne o kluczach Double, zawierające wartości Double");
-        System.out.println("_______________________________________________________________________");
-        treeDD.print();
+//        treeDD.setValue(2.5, 5.9);
+//        treeDD.setValue(0.16, 1.6);
+//        treeDD.setValue(23.6, 2.3);
+//        treeDD.setValue(0.141, 4.1);
+//        treeDD.setValue(1.58, 8.7);
+//        treeDD.setValue(112.0, 2.4);
+//        treeDD.setValue(1.4, 7.1);
+//        treeDD.setValue(8.3, 89.1);
+//        treeDD.setValue(6.84, 7.1);
+//        treeDD.setValue(86.4, 2.3);
+//        treeDD.setValue(10.9, 2.3);
+//        treeDD.setValue(0.23, 2.3);
+//        treeDD.setValue(41.9, 4.1);
+//        treeDD.setValue(5.8, 8.7);
+//        treeDD.setValue(13.2, 2.4);
+//        treeDD.setValue(6.14, 7.1);
+//        treeDD.setValue(4.89, 6.9);
 
         RedBlackTree<Integer,Integer> treeII = new RedBlackTree<>();
 
-        //setTest(treeII);
+        for (int i = 0; i < 1500; i++) {
+            treeID.setValue(generator.nextInt(6500), generator.nextInt(2000));
+        }
 
-        treeII.setValue(17, 14);
-        treeII.setValue(84, 23);
-        treeII.setValue(609, 3);
-        treeII.setValue(123, 83);
-        treeII.setValue(91, 41);
-        treeII.setValue(58, 87);
-        treeII.setValue(32, 24);
-        treeII.setValue(614, 71);
-        treeII.setValue(99, 69);
-        treeII.setValue(215, 59);
-        treeII.setValue(74, 16);
-        treeII.setValue(36, 73);
-        treeII.setValue(111, 1);
-        treeII.setValue(18, 87);
-        treeII.setValue(112, 4);
-        treeII.setValue(1, 71);
-        treeII.setValue(3, 89.1);
-
-        System.out.println("Drzewo czerwono-czarne o kluczach Integer, zawierające wartości Integer");
-        System.out.println("_______________________________________________________________________");
-
-        treeII.print();
+        setTest(treeII);
+//
+//        treeII.setValue(17, 14);
+//        treeII.setValue(84, 23);
+//        treeII.setValue(609, 3);
+//        treeII.setValue(123, 83);
+//        treeII.setValue(91, 41);
+//        treeII.setValue(58, 87);
+//        treeII.setValue(32, 24);
+//        treeII.setValue(614, 71);
+//        treeII.setValue(99, 69);
+//        treeII.setValue(215, 59);
+//        treeII.setValue(74, 16);
+//        treeII.setValue(36, 73);
+//        treeII.setValue(111, 1);
+//        treeII.setValue(18, 87);
+//        treeII.setValue(112, 4);
+//        treeII.setValue(1, 71);
+//        treeII.setValue(3, 89.1);
 
 
 
@@ -107,23 +101,29 @@ public class Main {
 
     private static void setTest(RedBlackTree<Integer, Integer> tree) {
 
-        setVWithTime(tree, 17);
-        setVWithTime(tree, 84);
-        setVWithTime(tree, 609);
-        setVWithTime(tree, 123);
-        setVWithTime(tree, 91);
-        setVWithTime(tree, 58);
-        setVWithTime(tree, 32);
-        setVWithTime(tree, 614);
-        setVWithTime(tree, 99);
-        setVWithTime(tree, 215);
-        setVWithTime(tree, 74);
-        setVWithTime(tree, 36);
-        setVWithTime(tree, 111);
-        setVWithTime(tree, 18);
-        setVWithTime(tree, 112);
-        setVWithTime(tree, 1);
-        setVWithTime(tree, 3);
+        Random generator = new Random();
+
+        for (int i = 0; i < 1000; i++) {
+            setVWithTime(tree, generator.nextInt(1000));
+        }
+    }
+
+    public  void printII(RedBlackTree treeII){
+        System.out.println("Drzewo czerwono-czarne o kluczach Integer, zawierające wartości Integer");
+        System.out.println("_______________________________________________________________________");
+        treeII.print();
+    }
+
+    public void printDD(RedBlackTree treeDD){
+        System.out.println("Drzewo czerwono-czarne o kluczach Double, zawierające wartości Double");
+        System.out.println("_______________________________________________________________________");
+        treeDD.print();
+    }
+
+    public void printID(RedBlackTree treeID){
+        System.out.println("Drzewo czerwono-czarne o kluczach Integer, zawierające wartości Double");
+        System.out.println("_______________________________________________________________________");
+        treeID.print();
     }
 
 
